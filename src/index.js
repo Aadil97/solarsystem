@@ -31,7 +31,7 @@ import React, {
   const xInitial = tf.tensor2d(xInitialArray, [numberOfPlanets, 3]);
   const vInitial = tf.tensor2d(vInitialArray, [numberOfPlanets, 3]);
   //Gravitaional constant
-  const G = tf.scalar(data.G);
+  const G = tf.scalar(data.Gravity);
   
   const trajSize = 20;
   const initialTraj = xInitialArray.map(x => Array(trajSize).fill(x));
