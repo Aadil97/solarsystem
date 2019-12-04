@@ -75,31 +75,33 @@ import React, {
       });
     }, [pos, compute]);
   
-    const handleUpdateGeometry = useCallback(self => {
-      self.verticesNeedUpdate = true;
-    }, []);
-    //Camera placed here
-    const { camera } = useThree();
-    return (
-      <group>
-        <orbitControls args={[camera,rootElement]} />
-        <ambientLight />
-        <pointLight />
-  
-        {pos.map((ppos, i) => {
-          return (
-            <mesh key={`planet-${i}`} position={ppos}>
-              <sphereBufferGeometry
-                args={[i === 0 ? 0.2 : data.planets[i].r * 800, 30, 30]}
-                attach="geometry"
-              />
-              <meshStandardMaterial
-                color={data.planets[i].color}
-                attach="material"
-              />
-            </mesh>
-          );
-        })}
+  const handleUpdateGeometry = useCallback(self => {
+    self.verticesNeedUpdate = true;
+  }, []);
+  const { camera } = useThree();
+  return (
+    <group>
+      <orbitControls args={[camera, rootElement]} enableKeys />
+      <ambientLight />
+      <pointLight />
+      {pos.map((ppos, i) => {
+        return (
+          <mesh
+            key={`planet-${i}`}
+            position={ppos}
+            onClick={e => window.open(data.planets[i].link)}
+          >
+            <sphereBufferGeometry
+              args={[i === 0 ? 0.2 : data.planets[i].r * 800, 30, 30]}
+              attach="geometry"
+            />
+            <meshStandardMaterial
+              color={data.planets[i].color}
+              attach="material"
+            />
+          </mesh>
+        );
+      })}
         {traj.map((points, i) => {
           return (
             <line key={`line-${i}`}>
@@ -125,6 +127,7 @@ import React, {
         <Canvas camera={{ position: [10, 6, 6] }}>
           <SolarSystem />
         </Canvas>
+        <div id="info">Move your mouse over a planet</div>
       </div>
     );
   }
