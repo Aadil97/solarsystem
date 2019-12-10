@@ -20,5 +20,5 @@ canvas {
   z-index: 100;
   display: block;
   color: #ffffff;
-  opacity: 0;
+  opacity: 1;
 }

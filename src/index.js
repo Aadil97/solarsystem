@@ -81,7 +81,7 @@ import React, {
   const { camera } = useThree();
   return (
     <group>
-      <orbitControls args={[camera, rootElement]} enableKeys />
+      <orbitControls args={[camera, rootElement]} />
       <ambientLight />
       <pointLight />
       {pos.map((ppos, i) => {
@@ -90,6 +90,14 @@ import React, {
             key={`planet-${i}`}
             position={ppos}
             onClick={e => window.open(data.planets[i].link)}
+            onPointerOver={e => {
+              document.getElementById("info").innerHTML = data.planets[i].name;
+              document.getElementById("info").style.opacity = 1;
+            }}
+            onClick={e => window.open(data.planets[i].link)}
+            onPointerOut={e =>
+              (document.getElementById("info").style.opacity = 0)
+            }
           >
             <sphereBufferGeometry
               args={[i === 0 ? 0.2 : data.planets[i].r * 800, 30, 30]}
